@@ -1,0 +1,147 @@
+* Issue self assigned Feb 3, 2021
+  https://github.com/spicygreenbook/greenbook-app/issues/220
+
+* Review Slack #Developers - Create (private) notes 
+  https://app.slack.com/client/T016AKB06MP/C01E91JCM0E
+
+  Commented better README for New Developers to Team needed.
+  New Issue opened (by other) and I volunteer to help (per Slack comments).
+  https://github.com/spicygreenbook/greenbook-app/issues/278
+
+* Create workspace @ local/desktop (for work on this issue)
+
+* Make sure local/desktop environment ok
+  ** latest node, npm
+  ** npx browserslist@latest --update-db
+  < if not updated , this will give false positive errors/warnings >
+
+* Update package.json to use Next.v10 ; i.e. add
+    "next": "^10.0.6",
+
+* CLI per readme
+  ** npm install
+  < save in separate file output - in case you need to refer to it during deployment/remote build >
+
+* Update config files
+  ** next.config.js
+  < Note 1: did not add external domain : imgix to domains below. > 
+  < Note 2: to determine sizes, SGB needs to know what Media Queries are used by CSS Framework or 3rd Party >
+  < (only) Added this 
+	    // https://nextjs.org/docs/api-reference/next/image
+	    // https://nextjs.org/docs/basic-features/image-optimization
+	    images: {
+	        //deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+	        //imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+	        domains: ['spicygreenbook.com'],
+	    },
+  >
+
+* Select test files
+  ** It will be "faq" + "team" (they have images)
+
+* Select test condition
+  ** it is PageSpeed (what I sent on 1st issue comment). This will be same-same or apples-to-apples comparison.
+  ** it is *not* same item used when issue opened (don't have URL software person used)
+  ** it is *not* Lighthouse. Lighthouse @ Desktop/Developer Browser is NOT 100% the same conditions IRL (in real life)
+  < note 3 : PageSpeed is "Deployed Files" (which is what users use from any location, any desktop, any browser). >
+  < note 4 : Test scores are different for PageSpeed vs Lighthouse. The differences are unknown but they exists. >
+
+* Update test files
+
+  PRE REQ
+
+  ** Other 1
+  **** Logos should not be responsive image sourced from a 10000 x 4546 file (that's way way way too big). I left size as is.
+  < The size aka 10000 x 4546 is not a typo. this may cause remote image optimization errors AFD (at a future date) >
+  < Logos should be fixed/non_responsive images and small - max 400 x 100 >
+
+  ** Other 2
+  **** I could not find info on the Media Queries SGB uses to determine breakpoints.
+  < Any optimization for images requires this info, even if it is 3rd party - all developers should know them. >
+  < The info is needed to make sure responsive_CSS ** matches ** responsive_images. Usually this is pre defined via the CSS_framework or Vendor_config. >
+
+  ** Misc 1  
+  **** Manually updated image files in /public (using ImageOptim - on Mac @ 80% default config) 
+  < BC (because) they were not optimized, locally. Any local image file should be optimized, locally. These were the png,jpg,svg files. >
+  < Reminder A: @ SGB - there is no art direction/sign-off. >
+  < Reminder B: @ SGB - image optimization is preferred to be performed by external/3rd party/vendor >
+
+  ** Misc 2
+  **** Font file references separated from CSS 
+  < this is to appease PageSpeed/Lighthouse >
+  < https://stackoverflow.com/questions/61909298/how-to-use-self-hosted-fonts-face-using-nextjs > 
+  < IMHO system, websafe fonts should be used. >
+
+  ** Misc 3
+  **** Some of the dependencies can be moved to devDependencies.
+  < Examples: npm, webpack, serve, etc.. I left package.json as is. >
+
+  // ...
+
+  REQUIRED = TEST locally / desktop (before deployment)
+
+  expo start (in 1st shell window)
+  npx next dev (in 2nd shell window)
+  FAILED = webpack not installed locally (in package.json)
+  https://stackoverflow.com/questions/43179531/error-cannot-find-module-webpack-lib-node-nodetemplateplugin
+  FIX = rm package.json ; yarn add webpack
+
+  REDO
+  
+  expo start (in 1st shell window)
+  npx next dev (in 2nd shell window)
+  Chrome Browser > Tab > https://localhost:3000
+  < on 1st use of any page , page will compile. May take ~1-2 minutes. When done, will show up in browser tab. >
+
+  NOTE 5 : Next.js officially recommends using "serve" to see/serve local builds
+  https://stackoverflow.com/questions/63518597/how-to-run-next-js-application-build-out-directory
+
+  NOTE 6 : Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions.
+
+// ...
+
+* Deploy
+
+  < stop all ; check files to make sure nothing sensitive (keys, pwds) will be included >
+
+  npx next build (in 2nd shell window)
+  < will be ~2-5 minutes and may fail. If fails here, will fail on remote build. >
+
+  NOTE 7 : Next.js differences btwn next build, next export, next start
+  https://stackoverflow.com/questions/61724368/what-is-the-difference-between-next-export-and-next-build-in-next-js
+
+  < login to vercel.com ; make sure you are under (build) quota and/or have space >
+  < if needed, delete old builds, old projects, start 100% fresh (to avoid cache, artifacts, confusion, etc.) >
+  < no need to CI via git > vercel ; you will deploy via CLI >
+
+  vercel
+
+  < follow default prompts . Upload may take ~ 2-5 minutes, build another ~ 2-5 minutes >
+  < final output should look like this >
+
+        [otto@greenbook-app 12:18 PM]$vercel
+        Vercel CLI 21.2.3
+        ? Set up and deploy “~/CODE.WORKSPACE/tickets.private/ticket.543_sgb_private_yes_github/greenbook-app”? [Y/n] y
+        ? Which scope do you want to deploy to? Otto
+        ? Link to existing project? [y/N] n
+        ? What’s your project’s name? greenbook-app
+        ? In which directory is your code located? ./
+        > Upload [===============-----] 73% 59.3sAuto-detected Project Settings (Next.js):
+        - Build Command: `npm run build` or `next build`
+        - Output Directory: Next.js default
+        - Development Command: next dev --port $PORT
+        ? Want to override the settings? [y/N] n
+        🔗  Linked to ottograjeda/greenbook-app (created .vercel)
+        🔍  Inspect: https://vercel.com/ottograjeda/greenbook-app/cmc99kc5i [9s]
+        ✅  Production: https://greenbook-app-liard.vercel.app [copied to clipboard] [8m]
+        📝  Deployed to production. Run `vercel --prod` to overwrite later (https://vercel.link/2F).
+        💡  To change the domain or build command, go to https://vercel.com/ottograjeda/greenbook-app/settings
+
+
+* Test Devsite via PageSpeed
+  < take screenshots and/or video for records >
+
+* Update Issue as needed.
+
+
+  
