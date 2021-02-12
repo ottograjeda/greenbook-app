@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Easing, Animated, Image, TouchableOpacity, Linking } from 'react-native';
+//import { StyleSheet, Text, View, Easing, Animated, Image, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, Text, View, Easing, Animated, TouchableOpacity, Linking } from 'react-native';
+import Image from 'next/image' // new - uses Next.v10
 import { getStyles, Theme } from '../utils';
 import { useStateValue } from "../components/State";
 import { AntDesign } from '@expo/vector-icons';
@@ -91,15 +93,25 @@ export default function (props) {
                     <View style={{ height: '100%' }}>
                         {props.theme == 'light' ?
                             <Image
-                                style={{ width: dimensions.width < 1100 ? '100%' : 200, flex: 1, resizeMode: 'contain' }}
+                                layout="responsive"
+                                src={require('../public/images/logo_nav_light.png')}
                                 alt="Spicy Green Book"
-                                source={isWeb ? { uri: '/images/logo_nav_light.png' } : require('../public/images/logo_nav_light.png')}
+                                width={254}
+                                height={80}
+                                loading="lazy" //  I have added loading="lazy", which uses Chrome/Firefox's Native lazy loading. 
+                                quality={70} // was 35, a lower setting that is fine for a blog. If you are doing high fashion, maybe make it a 70 :)
+                                sizes="(max-width: 600px) 100vw, (max-width: 1023px) 48vw, 23vw"
                             />
                             :
                             <Image
-                                style={{ width: dimensions.width < 1100 ? '100%' : 200, flex: 1, resizeMode: 'contain' }}
+                                layout="responsive"
+                                src={require('../public/images/logo_nav_dark.png')}
                                 alt="Spicy Green Book"
-                                source={isWeb ? { uri: '/images/logo_nav_dark.png' } : require('../public/images/logo_nav_dark.png')}
+                                width={254}
+                                height={80}
+                                loading="lazy" //  I have added loading="lazy", which uses Chrome/Firefox's Native lazy loading. 
+                                quality={70} // was 35, a lower setting that is fine for a blog. If you are doing high fashion, maybe make it a 70 :)
+                                sizes="(max-width: 600px) 100vw, (max-width: 1023px) 48vw, 23vw"
                             />
                         }
                     </View>

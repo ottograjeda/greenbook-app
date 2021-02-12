@@ -61,6 +61,13 @@ async function handle() {
 }
 
 module.exports = withExpo(withFonts(withImages({
+    // https://nextjs.org/docs/api-reference/next/image
+    // https://nextjs.org/docs/basic-features/image-optimization
+    images: {
+        //deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+        //imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        domains: ['spicygreenbook.com'],
+    },
     projectRoot: __dirname,
     generaiteSiteMap: handle()
 })));

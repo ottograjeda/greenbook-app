@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput } from 'react-native';
+//import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput } from 'react-native';
+import Image from 'next/image' // new - uses Next.v10
 
 import { getStyles, Theme } from '../utils';
 import { useStateValue } from "../components/State";

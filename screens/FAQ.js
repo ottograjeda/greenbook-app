@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useStateValue } from "../components/State";
-import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, FlatList, Image, TouchableOpacity, Animated} from 'react-native';
+//import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, FlatList, Image, TouchableOpacity, Animated} from 'react-native';
+import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, FlatList, TouchableOpacity, Animated} from 'react-native';
 import { Link } from "../components/Link";
 import { PageTitle } from "../components/PageTitle"; 
 import { RichText } from "../components/RichText"; 
 import { getStyles, Theme, getContent, getData } from '../utils';
-import { ResponsiveImage } from "../components/ResponsiveImage"
+//import { ResponsiveImage } from "../components/ResponsiveImage" // old - uses Next.v9 
+import Image from 'next/image' // new - uses Next.v10
 import { FontAwesome } from '@expo/vector-icons'; 
 
 function Page(props) {
@@ -130,10 +132,12 @@ function Page(props) {
                             <View style={styles.content}>
                                 <View style={dimensions.width < 700 ? {} : {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', alignItems: 'center'}}>
                                     <View style={dimensions.width < 700 ? {} : {flex: 1, paddingRight: 20}}>
-                                        <ResponsiveImage
-                                            style={{width: 861, resizeMode: 'contain', aspectRatio: 0.57}}
+                                        <Image
+                                            layout="responsive"
+                                            src={require('../public/images/faq_person.png')}
                                             alt="FAQ Person"
-                                            source={isWeb ? { uri: '/images/faq_person.png' } : require('../public/images/faq_person.png')}
+                                            width={861}
+                                            height={492}
                                         />
                                     </View>
                                     <View style={dimensions.width < 700 ? {paddingTop: 40} : {flex: 2, paddingLeft: 20}}>

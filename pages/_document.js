@@ -22,6 +22,7 @@ class CustomDocument extends Document {
             <link rel="manifest" href="site.webmanifest" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta property="twitter:domain" content="spicygreenbook.org" />
+            <link href="/fonts.css" rel="stylesheet" />
         </Head>
         <body>
           <Main />

@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { useStateValue } from "../components/State";
-import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, FlatList, Image} from 'react-native';
+//import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, FlatList, Image} from 'react-native';
+import {View, Text, StyleSheet, Button, Platform, ActivityIndicator, FlatList} from 'react-native';
 import { Link } from "../components/Link";
 import { PageTitle } from "../components/PageTitle"; 
 import { RichText } from "../components/RichText"; 
 import { getStyles, Theme, getContent, getData } from '../utils';
-import { ResponsiveImage } from "../components/ResponsiveImage"; 
+//import { ResponsiveImage } from "../components/ResponsiveImage" // old - uses Next.v9 
+import Image from 'next/image' // new - uses Next.v10
 import TeamListSection from './TeamListSection';
 
 
