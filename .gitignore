@@ -15,14 +15,48 @@ web-report/
 yarn-debug.log*
 yarn-error.log*
 
-# macOS
+# macOS / OSX
 .DS_Store
+/ios/Pods/
+*.hmap
+*.ipa
 
 # misc
-.DS_Store
 .env*
 
+# Next.js / Vercel
 .next
 public/sitemap.xml
 .expo-shared
 .vercel
+
+# ...............................
+
+# OTTO.CUSTOM
+_archive/
+_nogit/
+_notused/
+_raw/
+build/
+deploy/
+dist/
+out/
+public/
+.vscode/
+.firebase/
+.cache
+
+# Expo
+.expo
+__generated__
+web-build/
+web-report/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Bundle artifact
+*.jsbundle
+
